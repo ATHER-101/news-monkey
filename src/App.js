@@ -1,24 +1,33 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react'
+import News from './Components/News';
+import Navbar from './Components/Navbar';
+import { useState } from 'react';
+
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
+  const [search, setSearch] = useState('')
+
+  const exitSearch = ()=>{
+    setSearch('');
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar setSearch={setSearch} search={search}/>
+      <Routes>
+        <Route path='/' element={<News catagory='general' exitSearch={exitSearch} />} />
+        <Route path='/business' element={<News catagory='business' exitSearch={exitSearch} />} />
+        <Route path='/entertainment' element={<News catagory='entertainment' exitSearch={exitSearch} />} />
+        <Route path='/health' element={<News catagory='health' exitSearch={exitSearch} />} />
+        <Route path='/science' element={<News catagory='science' exitSearch={exitSearch} />} />
+        <Route path='/sports' element={<News catagory='sports' exitSearch={exitSearch} />} />
+        <Route path='/technology' element={<News catagory='technology' exitSearch={exitSearch} />} />
+        <Route path='/search' element={<News catagory='general' q={search} exitSearch={exitSearch}/>} />
+      </Routes>
+
+    </>
   );
 }
 
